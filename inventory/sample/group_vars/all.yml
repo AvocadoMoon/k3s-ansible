@@ -53,7 +53,11 @@ k3s_master_taint: "{{ true if groups['node'] | default([]) | length >= 1 else fa
 extra_args: >-
   {{ '--flannel-iface=' + flannel_iface if calico_iface is not defined and cilium_iface is not defined else '' }}
   --node-ip={{ k3s_node_ip }}
-
+  
+#####################
+## !!My Changes!!  ##
+#####################
+# the extra args provided should only be used if already deployed
 # change these to your liking, the only required are: --disable servicelb, --tls-san {{ apiserver_endpoint }}
 # the contents of the if block is also required if using calico or cilium
 extra_server_args: >-
@@ -67,6 +71,14 @@ extra_server_args: >-
   --tls-san {{ apiserver_endpoint }}
   --disable servicelb
   --disable traefik
+  --no-deploy servicelb 
+  --no-deploy traefik 
+  --kube-controller-manager-arg bind-address=0.0.0.0 
+  --kube-proxy-arg metrics-bind-address=0.0.0.0 
+  --kube-scheduler-arg bind-address=0.0.0.0 
+  --etcd-expose-metrics true 
+  --kubelet-arg containerd=/run/k3s/containerd/containerd.sock"
+
 
 extra_agent_args: >-
   {{ extra_args }}

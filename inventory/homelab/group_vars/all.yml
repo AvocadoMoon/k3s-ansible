@@ -8,7 +8,7 @@ systemd_dir: /etc/systemd/system
 system_timezone: America/New_York
 
 # interface which will be used for flannel
-flannel_iface: ens18
+# flannel_iface: ens18
 
 # uncomment calico_iface to use tigera operator/calico cni instead of flannel https://docs.tigera.io/calico/latest/about
 # calico_iface: "eth0"
@@ -17,7 +17,7 @@ calico_tag: v3.28.0 # calico version tag
 
 # uncomment cilium_iface to use cilium cni instead of flannel or calico
 # ensure v4.19.57, v5.1.16, v5.2.0 or more recent kernel
-# cilium_iface: "ens18"
+cilium_iface: "ens18"
 cilium_mode: native # native when nodes on same subnet or using bgp, else set routed
 cilium_tag: v1.16.0 # cilium version tag
 cilium_hubble: true # enable hubble observability relay and ui
